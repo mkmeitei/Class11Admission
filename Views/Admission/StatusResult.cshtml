@@ -1,0 +1,42 @@
+@model Class11Admission.Models.Application
+
+@{
+    ViewData["Title"] = "Application Status";
+}
+
+<div class="container mt-5">
+    <h3>Application Status</h3>
+    <hr />
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">@Model.FullName</h5>
+
+            <p><strong>Tracking ID:</strong> @Model.TrackingId</p>
+            <p><strong>Stream Applied:</strong> @Model.Stream</p>
+            <p><strong>Applied On:</strong> @Model.AppliedOn.ToShortDateString()</p>
+
+            <p>
+                <strong>Status:</strong>
+                @if (Model.Status == "Approved")
+                {
+                    <span class="badge bg-success fs-6">✅ Approved</span>
+                }
+                else if (Model.Status == "Rejected")
+                {
+                    <span class="badge bg-danger fs-6">❌ Rejected</span>
+                }
+                else if (Model.Status == "Shortlisted")
+                {
+                    <span class="badge bg-warning fs-6">⭐ Shortlisted</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary fs-6">⏳ Pending</span>
+                }
+            </p>
+        </div>
+    </div>
+
+    <a asp-action="CheckStatus" class="btn btn-outline-secondary mt-3">Check Another</a>
+</div>

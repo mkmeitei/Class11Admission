@@ -1,0 +1,27 @@
+@{
+    ViewData["Title"] = "Check Application Status";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h3>Check Your Application Status</h3>
+            <p class="text-muted">Enter the Tracking ID you received after applying.</p>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger">@ViewBag.Error</div>
+            }
+
+            <form asp-action="CheckStatus" method="post">
+                @Html.AntiForgeryToken()
+                <div class="mb-3">
+                    <label class="form-label">Tracking ID</label>
+                    <input type="text" name="trackingId" class="form-control"
+                           placeholder="e.g. ADM3F9A1B2C" />
+                </div>
+                <button type="submit" class="btn btn-primary">Check Status</button>
+            </form>
+        </div>
+    </div>
+</div>
