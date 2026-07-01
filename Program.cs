@@ -51,4 +51,10 @@ app.MapControllerRoute(
 
 app.MapRazorPages();   // needed for Login/Register/Logout pages
 
+// Seed the Admin role and default admin account
+using (var scope = app.Services.CreateScope())
+{
+    await DbSeeder.SeedAdminAsync(scope.ServiceProvider);
+}
+
 app.Run();

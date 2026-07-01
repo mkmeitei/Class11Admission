@@ -1,0 +1,68 @@
+@model List<Class11Admission.Models.Application>
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container mt-4">
+    <h2>Admin Dashboard</h2>
+    <p class="text-muted">All submitted applications</p>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">@TempData["Message"]</div>
+    }
+
+    <table class="table table-bordered table-hover mt-3">
+        <thead class="table-dark">
+            <tr>
+                <th>Tracking ID</th>
+                <th>Name</th>
+                <th>Stream</th>
+                <th>Percentage</th>
+                <th>Applied On</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var app in Model)
+            {
+                <tr>
+                    <td>@app.TrackingId</td>
+                    <td>@app.FullName</td>
+                    <td>@app.Stream</td>
+                    <td>@app.Percentage%</td>
+                    <td>@app.AppliedOn.ToShortDateString()</td>
+                    <td>
+                        @if (app.Status == "Approved")
+                        {
+                            <span class="badge bg-success">Approved</span>
+                        }
+                        else if (app.Status == "Rejected")
+                        {
+                            <span class="badge bg-danger">Rejected</span>
+                        }
+                        else if (app.Status == "Shortlisted")
+                        {
+                            <span class="badge bg-warning text-dark">Shortlisted</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">Pending</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@app.Id"
+                           class="btn btn-sm btn-primary">View</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (!Model.Any())
+    {
+        <p class="text-center text-muted mt-4">No applications yet.</p>
+    }
+</div>
