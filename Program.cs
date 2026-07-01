@@ -6,8 +6,12 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Database — using SQLite file, not a connection string from appsettings
+var connectionString = builder.Configuration
+    .GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("Connection string not found.");
+
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite("Data Source=admission.db"));
+    options.UseSqlServer(connectionString));
 
 // Identity — adds login, registration, roles, cookie auth
 // (this single call replaces the old AddDefaultIdentity call)

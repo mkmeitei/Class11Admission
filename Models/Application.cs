@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Class11Admission.Models
 {
@@ -41,6 +42,7 @@ namespace Class11Admission.Models
         [Required(ErrorMessage = "Percentage is required")]
         [Display(Name = "Class 10 Percentage")]
         [Range(0, 100, ErrorMessage = "Must be between 0 and 100")]
+        [Column(TypeName = "decimal(5,2)")]   // ← add this line
         public decimal Percentage { get; set; }
 
         // --- Stream Choice ---
